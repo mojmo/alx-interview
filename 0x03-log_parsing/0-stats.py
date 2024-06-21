@@ -24,8 +24,12 @@ try:
         # Validate the line format
         try:
             file_size = int(parts[-1])
-            status_code = int(parts[-2])
             total_size += file_size
+        except Exception:
+            pass
+
+        try:
+            status_code = int(parts[-2])
 
             if status_code in stats:
                 stats[status_code] += 1
