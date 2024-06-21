@@ -40,19 +40,25 @@ try:
 
         # Validate the line format
         if re.match(validation_regex, line):
-            parts = line.split()
-            file_size = int(parts[-1])
-            status_code = int(parts[-2])
-            total_size += file_size
+            try:
+                parts = line.split()
+                file_size = int(parts[-1])
+                status_code = int(parts[-2])
+                total_size += file_size
 
-            if status_code in stats:
-                stats[status_code] += 1
+                if status_code in stats:
+                    stats[status_code] += 1
+            except Exception:
+                pass
 
             lines_count += 1
 
             # Print stats after every 10 lines
             if lines_count % 10 == 0:
                 print_stats()
+
+except Exception as e:
+    print(f"Error: {e}", file=sys.stderr)
 finally:
     # Print stats upon exiting
     print_stats()
