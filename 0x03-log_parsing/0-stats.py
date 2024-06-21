@@ -53,9 +53,6 @@ try:
             # Print stats after every 10 lines
             if lines_count % 10 == 0:
                 print_stats()
-
-except Exception as e:
-    print(f"Error: {e}", file=sys.stderr)
 finally:
     # Print stats upon exiting
     print_stats()
