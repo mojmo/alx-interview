@@ -6,11 +6,15 @@ This folder contains a Python function `validUTF8` that determines if a given da
 
 The validUTF8 function works as follows:
 
-- It starts by initializing num_bytes to 0, which tracks the number of bytes in the current UTF-8 character.
-- It uses bitwise masks to determine the number of bytes in a character and to validate continuation bytes.
-- For each byte in the input list, the function checks if it starts a new UTF-8 character or is a valid continuation byte.
-- If at any point a byte does not conform to UTF-8 encoding rules, the function returns False.
-- If the entire list is processed without errors, the function returns True.
+- **Initialization and Byte Masking:** The bytes are masked using byte = byte & 0xFF to ensure only the 8 least significant bits are considered.
+
+- **Counting the Number of Bytes:** A while loop is used to count the leading 1s in the byte to determine the number of bytes in the UTF-8 character. This count is stored in num_bytes.
+
+- **Handling Continuation Bytes:** If num_bytes is greater than 0, it checks if the current byte is a valid continuation byte (it should start with 10xxxxxx). If it is not valid, the function returns False.
+
+- **Validation of Initial Bytes:** If the number of leading 1s is 1 or more than 4, the function returns False as these are invalid UTF-8 sequences.
+
+- **Final Check:** At the end of the loop, the function checks if num_bytes is 0, which means all characters are complete and valid. If num_bytes is not 0, it means the data ends with incomplete characters, and the function returns False.
 
 ## Example
 
