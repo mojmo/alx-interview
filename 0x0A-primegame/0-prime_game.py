@@ -57,6 +57,10 @@ def isWinner(x, nums):
             str: The name of the player who wins the round ("Maria" or "Ben").
         """
         primes = [i for i in range(1, n + 1) if is_prime[i]]
+
+        if not primes:
+            return "Ben"
+
         moves = 0  # Maria starts, so move count determines whose turn it is
 
         while primes:
